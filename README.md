@@ -37,6 +37,6 @@
 <br />
 <p align="center">
   <a href="https://github.com/Tung-I/DAnA_FSOD">
-    <img src="images/prediction.jpg" alt="Logo" width="1024" height="780">
+    <img src="images/prediction.jpg" alt="Logo" width="1024" height="720">
   </a>
 </p>
