@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Tung-I/DAnA_FSOD">
-    <img src="images/attention_visualization.jpg" alt="Logo" width="1024" height="280">
+    <img src="images/attention_visualization.jpg" alt="attention_visualization" width="1024" height="280">
   </a>
 </p>
 
@@ -19,13 +19,13 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Data Preparation</a></li>
-        <li><a href="#installation">Pretrained Model</a></li>
+        <li><a href="#data_preparation">Data Preparation</a></li>
+        <li><a href="#pretrained_model">Pretrained Model</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#Train">Usage</a></li>
-    <li><a href="#Inference">Roadmap</a></li>
+    <li><a href="#train">Train</a></li>
+    <li><a href="#inference">Inference</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -33,7 +33,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Tung-I/DAnA_FSOD">
-    <img src="images/prediction.jpg" alt="Logo" width="1024" height="660">
+    <img src="images/prediction.jpg" alt="prediction" width="1024" height="660">
   </a>
 </p>
 
