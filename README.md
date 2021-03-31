@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Tung-I/DAnA_FSOD">
-    <img src="images/attention_visualization.jpg" alt="Logo" width="80" height="80">
+    <img src="images/attention_visualization.jpg" alt="Logo" width="400" height="160">
   </a>
 </p>
 
