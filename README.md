@@ -34,5 +34,9 @@
   </ol>
 </details>
 
-
-![alt text](http://github.com/Tung-I/DAnA_FSOD/blob/main/prediction.jpg?raw=true)
+<br />
+<p align="center">
+  <a href="https://github.com/Tung-I/DAnA_FSOD">
+    <img src="images/prediction.jpg" alt="Logo" width="1024" height="280">
+  </a>
+</p>
