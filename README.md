@@ -48,16 +48,28 @@ Under the few-shot settting, the proposed method achieves SOTA performance on CO
 <!-- GETTING STARTED -->
 ## Getting Started
 ### Prerequisites
-Python 3.6
-Cuda 10.1
-Pytorch 1.2.0
+* Python 3.6
+* Cuda 10.1
+* Pytorch 1.2.0
 
 ### Data Preparation
-First, create a folder:
+1. First, create a folder:
 ```
 cd DAnA_FSOD && mkdir data
 ```
+2. Download the COCO dataset
+3. Create symlinks for the dataset
+```
+cd $DAnA_FSOD/data
+ln -s /[your_path_to_coco]/coco coco
+```
+
 ### Pretrained Model
+Multiple pretrained models can ve used in our experiments (e.g., res50, vgg16).
+Please download them and put them into the data/pretrained_model/.
+**NOTE**. We compare the pretrained models from Pytorch and Caffe, and surprisingly find Caffe pretrained models have slightly better performance than Pytorch pretrained. We would suggest to use Caffe pretrained models from the above link to reproduce our results.
+**If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
+
 ### Installation
 ## Train
 ## Inference
