@@ -30,6 +30,12 @@
   </ol>
 </details>
 
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+While recent progress has significantly boosted few-shot classification (FSC) performance, few-shot object detection (FSOD) remains challenging for modern learning systems.
+Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying attention to specific semantics conditioned on the query.
+
 <br />
 <p align="center">
   <a href="https://github.com/Tung-I/DAnA_FSOD">
