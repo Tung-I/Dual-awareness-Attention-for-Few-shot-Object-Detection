@@ -13,10 +13,10 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#introduction">Introduction</a>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#getting_started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#data_preparation">Data Preparation</a></li>
@@ -27,14 +27,16 @@
     <li><a href="#train">Train</a></li>
     <li><a href="#inference">Inference</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- INTRODUCTION -->
+## Introduction
 
 While recent progress has significantly boosted few-shot classification (FSC) performance, few-shot object detection (FSOD) remains challenging for modern learning systems.
 Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying attention to specific semantics conditioned on the query.
+Under the few-shot settting, the proposed method achieves SOTA performance on COCO benchmark.
 
 <br />
 <p align="center">
@@ -43,3 +45,21 @@ Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptab
   </a>
 </p>
 
+<!-- GETTING STARTED -->
+## Getting Started
+### Prerequisites
+Python 3.6
+Cuda 10.1
+Pytorch 1.2.0
+
+### Data Preparation
+First, create a folder:
+```
+cd DAnA_FSOD && mkdir data
+```
+### Pretrained Model
+### Installation
+## Train
+## Inference
+## Contact
+## Acknowledgements
