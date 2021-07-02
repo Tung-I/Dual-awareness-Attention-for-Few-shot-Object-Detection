@@ -1,13 +1,6 @@
 # Dual-awareness Attention for Few-shot Object Detection
 <!-- ![alt text](http://github.com/Tung-I/DAnA_FSOD/blob/main/attention_visualization.jpg?raw=true) -->
 
-<br />
-<p align="center">
-  <a href="https://github.com/Tung-I/Dual-awareness-Attention-for-Few-shot-Object-Detection
-">
-    <img src="images/attention_visualization.jpg" alt="attention_visualization" width="1024" height="280">
-  </a>
-</p>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -59,11 +52,16 @@ Under the few-shot settting, the proposed method achieves SOTA performance on CO
 ```
 cd Dual-awareness-Attention-for-Few-shot-Object-Detection && mkdir data
 ```
-2. Download the COCO dataset. Please follow the instruction in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models) to prepare either VOC or COCO dataset.
-3. Create symlinks for the dataset
+2. Download the COCO dataset. Please follow the instruction in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models).
+Create the symlinks to datasets.
 ```
-cd $DAnA_FSOD/data
-ln -s /[your_path_to_coco]/coco coco
+$cd data
+
+# For VOC 2007
+$ln -s /your/path/to/VOC2007/VOCdevkit VOCdevkit2007
+
+# For COCO
+$ln -s /your/path/to/VOC2012/coco coco
 ```
 
 ### Pretrained Model
@@ -78,5 +76,14 @@ Please download them and put them into the data/pretrained_model/.
 ### Installation
 ## Train
 ## Inference
+## Attention Visualization
+<br />
+<p align="center">
+  <a href="https://github.com/Tung-I/Dual-awareness-Attention-for-Few-shot-Object-Detection
+">
+    <img src="images/attention_visualization.jpg" alt="attention_visualization" width="1024" height="280">
+  </a>
+</p>
+
 ## Contact
 ## Acknowledgements
