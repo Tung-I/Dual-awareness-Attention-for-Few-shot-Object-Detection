@@ -49,15 +49,15 @@ Under the few-shot settting, the proposed method achieves SOTA performance on CO
 ## Getting Started
 ### Prerequisites
 * Python 3.6
-* Cuda 10.1
-* Pytorch 1.2.0
+* Cuda 10.0 or 10.1
+* Pytorch 1.2.0 or higher
 
 ### Data Preparation
-1. First, create a folder:
+1. First, clone the repository and create a data folder:
 ```
-cd DAnA_FSOD && mkdir data
+cd Dual-awareness-Attention-for-Few-shot-Object-Detection && mkdir data
 ```
-2. Download the COCO dataset
+2. Download the COCO dataset. Please follow the instruction in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models) to prepare either VOC or COCO dataset.
 3. Create symlinks for the dataset
 ```
 cd $DAnA_FSOD/data
