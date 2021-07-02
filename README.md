@@ -3,7 +3,8 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/Tung-I/DAnA_FSOD">
+  <a href="https://github.com/Tung-I/Dual-awareness-Attention-for-Few-shot-Object-Detection
+">
     <img src="images/attention_visualization.jpg" alt="attention_visualization" width="1024" height="280">
   </a>
 </p>
@@ -40,7 +41,8 @@ Under the few-shot settting, the proposed method achieves SOTA performance on CO
 
 <br />
 <p align="center">
-  <a href="https://github.com/Tung-I/DAnA_FSOD">
+  <a href="https://github.com/Tung-I/Dual-awareness-Attention-for-Few-shot-Object-Detection
+">
     <img src="images/prediction.jpg" alt="prediction" width="1024" height="660">
   </a>
 </p>
