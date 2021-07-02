@@ -55,27 +55,53 @@ cd Dual-awareness-Attention-for-Few-shot-Object-Detection && mkdir data
 2. Download the COCO dataset. Please follow the instruction in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models).
 Create the symlinks to datasets.
 ```
-$cd data
+$ cd data
 
 # For VOC 2007
-$ln -s /your/path/to/VOC2007/VOCdevkit VOCdevkit2007
+$ ln -s /your/path/to/VOC2007/VOCdevkit VOCdevkit2007
 
 # For COCO
-$ln -s /your/path/to/VOC2012/coco coco
+$ ln -s /your/path/to/VOC2012/coco coco
 ```
 
 ### Pretrained Model
-Multiple pretrained models can ve used in our experiments (e.g., res50, vgg16).
-
-Please download them and put them into the data/pretrained_model/.
-
-**NOTE**. We compare the pretrained models from Pytorch and Caffe, and surprisingly find Caffe pretrained models have slightly better performance than Pytorch pretrained. We would suggest to use Caffe pretrained models from the above link to reproduce our results.
-
+Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model 
+```
+$ mkdir data/pretrained_model && cd data/pretrained_model
+$ ln -s /your/path/to/res50.pth res50.pth
+```
+**NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-### Installation
+### Compilation
+Compile COCO API
+```
+$ cd data
+$ git clone https://github.com/pdollar/coco.git 
+$ cd coco/PythonAPI
+$ make && make install
+# put pycocotools under data/
+$ mv cocoapi/PythonAPI/pycocotools .
+```
+Compile the cuda dependencies using following commands
+```
+$ cd lib
+$ python setup.py build develop
+```
+If you are confronted with error during the compilation, you might miss to export the CUDA paths to your environment.
+
 ## Train
+```
+$ mkdir models
+$ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3
+# re-training
+$ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3 --r --load_dir models/dana_bs8_lr1e3 --checkepoch 12
+```
+
 ## Inference
+```
+
+```
 ## Attention Visualization
 <br />
 <p align="center">
