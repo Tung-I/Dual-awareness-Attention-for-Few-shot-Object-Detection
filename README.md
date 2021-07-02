@@ -28,6 +28,8 @@
 <!-- INTRODUCTION -->
 ## Introduction
 
+### NOTE: The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
+
 While recent progress has significantly boosted few-shot classification (FSC) performance, few-shot object detection (FSOD) remains challenging for modern learning systems.
 Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying attention to specific semantics conditioned on the query.
 Under the few-shot settting, the proposed method achieves SOTA performance on COCO benchmark.
@@ -57,10 +59,10 @@ Create the symlinks to datasets.
 ```
 $ cd data
 
-# For VOC 2007
+For VOC 2007
 $ ln -s /your/path/to/VOC2007/VOCdevkit VOCdevkit2007
 
-# For COCO
+For COCO
 $ ln -s /your/path/to/VOC2012/coco coco
 ```
 
@@ -80,7 +82,7 @@ $ cd data
 $ git clone https://github.com/pdollar/coco.git 
 $ cd coco/PythonAPI
 $ make && make install
-# put pycocotools under data/
+put pycocotools under data/
 $ mv cocoapi/PythonAPI/pycocotools .
 ```
 Compile the cuda dependencies using following commands
@@ -94,13 +96,13 @@ If you are confronted with error during the compilation, you might miss to expor
 ```
 $ mkdir models
 $ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3
-# re-training
+re-training
 $ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3 --r --load_dir models/dana_bs8_lr1e3 --checkepoch 12
 ```
 
 ## Inference
 ```
-
+$ python inference.py --net dana --bs 1 --load_dir models/dana_bs8_lr1e3 --checkepoch 16 --way 1 --shot 3 --sup_dir data/sup_im 
 ```
 ## Attention Visualization
 <br />
