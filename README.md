@@ -25,10 +25,10 @@
   </ol>
 </details>
 
+### NOTE: The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
+
 <!-- INTRODUCTION -->
 ## Introduction
-
-### NOTE: The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
 
 While recent progress has significantly boosted few-shot classification (FSC) performance, few-shot object detection (FSOD) remains challenging for modern learning systems.
 Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying attention to specific semantics conditioned on the query.
@@ -113,6 +113,5 @@ $ python inference.py --net dana --bs 1 --load_dir models/dana_bs8_lr1e3 --check
   </a>
 </p>
 
-## Contact
 ## Acknowledgements
-[faster-rcnn.pytorch](https://github.com/jwyang/faster-rcnn.pytorch/tree/pytorch-1.0)
+The project is mainly build on [faster-rcnn.pytorch](https://github.com/jwyang/faster-rcnn.pytorch/tree/pytorch-1.0).
