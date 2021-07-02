@@ -24,7 +24,8 @@
   </ol>
 </details>
 
-### NOTE: The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
+## NOTE
+The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
 
 <!-- INTRODUCTION -->
 ## Introduction
