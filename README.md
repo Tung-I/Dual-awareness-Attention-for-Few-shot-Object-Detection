@@ -20,7 +20,6 @@
     </li>
     <li><a href="#train">Train</a></li>
     <li><a href="#inference">Inference</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
