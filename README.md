@@ -67,7 +67,7 @@ $ ln -s /your/path/to/VOC2012/coco coco
 ```
 
 ### Pretrained Model
-Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model 
+Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
 $ ln -s /your/path/to/res50.pth res50.pth
@@ -76,7 +76,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
 ### Compilation
-Compile COCO API
+Compile COCO API.
 ```
 $ cd data
 $ git clone https://github.com/pdollar/coco.git 
@@ -85,7 +85,7 @@ $ make && make install
 put pycocotools under data/
 $ mv cocoapi/PythonAPI/pycocotools .
 ```
-Compile the cuda dependencies using following commands
+Compile the cuda dependencies using following commands.
 ```
 $ cd lib
 $ python setup.py build develop
@@ -115,3 +115,4 @@ $ python inference.py --net dana --bs 1 --load_dir models/dana_bs8_lr1e3 --check
 
 ## Contact
 ## Acknowledgements
+[faster-rcnn.pytorch](https://github.com/jwyang/faster-rcnn.pytorch/tree/pytorch-1.0)
