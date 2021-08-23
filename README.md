@@ -66,6 +66,11 @@ For COCO
 $ ln -s /your/path/to/VOC2012/coco coco
 ```
 
+3. Prepare support images for inference
+4. ```
+$ ln -s /your/path/to/supports supports
+```
+
 ### Pretrained Model
 Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
