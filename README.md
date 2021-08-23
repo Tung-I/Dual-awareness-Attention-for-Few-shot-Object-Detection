@@ -78,7 +78,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 ### Compilation
 Compile COCO API.
 ```
-$ cd data
+$ cd lib
 $ git clone https://github.com/pdollar/coco.git 
 $ cd coco/PythonAPI
 $ make && make install
