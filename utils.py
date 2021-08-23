@@ -18,7 +18,6 @@ from model.framework.fsod import FSOD
 from model.framework.meta import METARCNN
 from model.framework.fgn import FGN
 from model.framework.dana import DAnARCNN
-from model.framework.cisa import CISARCNN
 from pycocotools.coco import COCO
 
 
@@ -48,12 +47,6 @@ def parse_args():
     parser.add_argument('--onc', dest='old_n_classes', help='number of classes of the source domain', default=81, type=int)
     # inference setting
     parser.add_argument('--eval_dir', dest='eval_dir', help='output directory of evaluation', default=None, type=str)
-    # multi-stage
-    parser.add_argument('--stage', dest='stage', help='current stage', default=None, type=int)
-    parser.add_argument('--pred_dir', dest='pred_dir', help='directory to output predictions', default=None, type=str)
-    parser.add_argument('--emb_shot', dest='emb_shot', help='number of shots for embedding', default=1, type=int)
-    parser.add_argument('--thres', dest='thres', help='threshold of score', default=0.5, type=float)
-    parser.add_argument('--ori_model', dest='ori_model', help='well-trained model path', default=None, type=str)
     # few shot
     parser.add_argument('--fs', dest='fewshot', help='few-shot setting', default=False, action='store_true')
     parser.add_argument('--way', dest='way', help='num of support way', default=2, type=int)
@@ -90,7 +83,7 @@ def parse_args():
     elif args.dataset == "coco2017":
         args.imdb_name = "coco_2014_train+coco_2014_valminusminival"
         args.imdbval_name = "coco_2014_minival"
-    elif args.dataset == "set1":
+    elif args.dataset == "coco_base":
         args.imdb_name = "coco_60_set1"
     elif args.dataset == "coco_ft":
         args.imdb_name = "coco_ft"
@@ -101,43 +94,6 @@ def parse_args():
         args.imdbval_name = "coco_20_set1"
     elif args.dataset == "val2014_base":
         args.imdbval_name = "coco_20_set2"
-
-    elif args.dataset == "ycb2d_replace96":
-        args.imdb_name = "ycb2d_replace96"
-    elif args.dataset == "ycb2d_replace80":
-        args.imdb_name = "ycb2d_replace80"
-    elif args.dataset == "ycb2d_replace64":
-        args.imdb_name = "ycb2d_replace64"
-    elif args.dataset == "ycb2d_replace48":
-        args.imdb_name = "ycb2d_replace48"
-    elif args.dataset == "ycb2d_replace32":
-        args.imdb_name = "ycb2d_replace32"
-    elif args.dataset == "ycb2d_replace16":
-        args.imdb_name = "ycb2d_replace16"
-
-    elif 'ycb2d_stage' in args.dataset:
-        args.imdb_name = args.dataset
-
-    elif args.dataset == "ycb2d_replace64c1":
-        args.imdb_name = "ycb2d_replace64c1"
-    elif args.dataset == "ycb2d_replace64c2":
-        args.imdb_name = "ycb2d_replace64c2"
-    elif args.dataset == "ycb2d_replace64c3":
-        args.imdb_name = "ycb2d_replace64c3"
-    elif args.dataset == "ycb2d_replace64c4":
-        args.imdb_name = "ycb2d_replace64c4"
-
-    elif 'ycb2d_oracle' in args.dataset:
-        args.imdb_name = args.dataset
-
-    elif args.dataset == 'ycb2d_test':
-        args.imdbval_name = "ycb2d_inference"
-    elif args.dataset == 'ycb2d_testfs':
-        args.imdbval_name = "ycb2d_inferencefs"
-    elif args.dataset == 'ycb2d_test_dense':
-        args.imdbval_name = "ycb2d_inference_dense"
-    elif args.dataset == 'ycb2d_testfs_dense':
-        args.imdbval_name = "ycb2d_inferencefs_dense"
 
     else:
         raise Exception(f'dataset {args.dataset} not defined')
@@ -155,6 +111,8 @@ def get_model(name, pretrained=True, way=2, shot=3, classes=[]):
         model = FGN(classes, pretrained=pretrained, num_way=way, num_shot=shot)
     elif name == 'cisa':
         model = CISARCNN(classes, 'concat', 256, 256, pretrained=pretrained, num_way=way, num_shot=shot)
+    elif name == 'DAnA':
+        model = DAnARCNN(classes, 'concat', 256, 256, pretrained=pretrained, num_way=way, num_shot=shot)
     else:
         raise Exception(f"network {name} is not defined")
     model.create_architecture()

@@ -13,13 +13,9 @@ from tqdm import tqdm
 
 from roi_data_layer.roidb import combined_roidb
 from roi_data_layer.fs_loader import FewShotLoader, sampler
-from roi_data_layer.oracle_loader import OracleLoader
-from roi_data_layer.finetune_loader import FinetuneLoader
-
 from model.utils.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from model.utils.net_utils import weights_normal_init, save_net, load_net, \
       adjust_learning_rate, save_checkpoint, clip_gradient
-
 from model.utils.fsod_logger import FSODLogger
 
 from utils import *
@@ -53,16 +49,8 @@ if __name__ == '__main__':
     cfg.USE_GPU_NMS = True
     imdb, roidb, ratio_list, ratio_index = combined_roidb(args.imdb_name)
 
-    if not args.fewshot:
-        dataset = OracleLoader(roidb, ratio_list, ratio_index, args.batch_size, \
-                            imdb.num_classes, training=True)
-    elif args.finetune:
-        CWD = os.getcwd()
-        support_dir = os.path.join(CWD, 'data/supports', args.sup_dir)
-        dataset = FinetuneLoader(imdb, roidb, ratio_list, ratio_index, args.batch_size, \
-                            imdb.num_classes, support_dir, training=True, num_shot=args.shot)
-    else:
-        dataset = FewShotLoader(roidb, ratio_list, ratio_index, args.batch_size, \
+
+    dataset = FewShotLoader(roidb, ratio_list, ratio_index, args.batch_size, \
                             imdb.num_classes, training=True, num_way=args.way, num_shot=args.shot)
     train_size = len(roidb)
     print('{:d} roidb entries'.format(len(roidb)))
@@ -71,17 +59,16 @@ if __name__ == '__main__':
                             sampler=sampler_batch, num_workers=args.num_workers)
 
     # initilize the tensor holders
-    holders = prepare_var(support=args.fewshot)
+    holders = prepare_var(support=True)
     im_data = holders[0]
     im_info = holders[1]
     num_boxes = holders[2]
     gt_boxes = holders[3]
-    if args.fewshot:
-        support_ims = holders[4]
+    support_ims = holders[4]
 
     # initilize the network
-    pre_weight = False if args.finetune or args.resume else True
-    classes = imdb.classes if not args.fewshot else ['fg', 'bg']
+    pre_weight = False if args.resume else True
+    classes = ['fg', 'bg']
     model = get_model(args.net, pretrained=pre_weight, way=args.way, shot=args.shot, classes=classes)
     model.cuda()
 
@@ -139,22 +126,15 @@ if __name__ == '__main__':
                 im_info.resize_(data[1].size()).copy_(data[1])
                 gt_boxes.resize_(data[2].size()).copy_(data[2])
                 num_boxes.resize_(data[3].size()).copy_(data[3])
-                if args.fewshot:
-                    support_ims.resize_(data[4].size()).copy_(data[4])
+                support_ims.resize_(data[4].size()).copy_(data[4])
 
             model.zero_grad()
 
-            if args.fewshot:
-                rois, cls_prob, bbox_pred, \
-                rpn_loss_cls, rpn_loss_box, \
-                RCNN_loss_cls, RCNN_loss_bbox, \
-                rois_label = model(im_data, im_info, gt_boxes, num_boxes, support_ims)
-            else:
-                rois, cls_prob, bbox_pred, \
-                rpn_loss_cls, rpn_loss_box, \
-                RCNN_loss_cls, RCNN_loss_bbox, \
-                rois_label = model(im_data, im_info, gt_boxes, num_boxes)
-
+            rois, cls_prob, bbox_pred, \
+            rpn_loss_cls, rpn_loss_box, \
+            RCNN_loss_cls, RCNN_loss_bbox, \
+            rois_label = model(im_data, im_info, gt_boxes, num_boxes, support_ims)
+   
             loss = rpn_loss_cls.mean() + rpn_loss_box.mean() \
                 + RCNN_loss_cls.mean() + RCNN_loss_bbox.mean()
             loss_temp += loss.item()
