@@ -12,7 +12,7 @@ from pathlib import Path
 from PIL import Image
 from scipy.misc import imread
 
-from roi_data_layer.minibatch import get_minibatch, get_minibatch
+from roi_data_layer.minibatch import get_minibatch
 from model.utils.config import cfg
 from model.rpn.bbox_transform import bbox_transform_inv, clip_boxes
 from model.utils.blob import prep_im_for_blob, im_list_to_blob

@@ -43,7 +43,7 @@ if __name__ == '__main__':
         'model_{}_{}.pth'.format(args.checkepoch, args.checkpoint))
 
     # initilize the network
-    classes = imdb.classes if not args.fewshot else ['fg', 'bg']
+    classes = ['fg', 'bg']
     model = get_model(args.net, pretrained=False, way=args.way, shot=args.shot, classes=classes)
     print("load checkpoint %s" % (load_name))
     checkpoint = torch.load(load_name)
@@ -58,13 +58,12 @@ if __name__ == '__main__':
     model.eval()
 
     # initilize the tensor holders
-    holders = prepare_var(support=args.fewshot)
+    holders = prepare_var(support=True)
     im_data = holders[0]
     im_info = holders[1]
     num_boxes = holders[2]
     gt_boxes = holders[3]
-    if args.fewshot:
-        support_ims = holders[4]
+    support_ims = holders[4]
 
     # prepare holder for predicted boxes
     start = time.time()
@@ -80,11 +79,9 @@ if __name__ == '__main__':
 
     imdb, roidb, ratio_list, ratio_index = combined_roidb(args.imdbval_name, False)
     imdb.competition_mode(on=True)
-    if args.fewshot:
-        dataset = InferenceLoader(0, imdb, roidb, ratio_list, ratio_index, support_dir, 
+    dataset = InferenceLoader(0, imdb, roidb, ratio_list, ratio_index, support_dir, 
                             1, len(imdb._classes), num_shot=args.shot, training=False, normalize=False)
-    else:
-        dataset = GeneralTestLoader(roidb, ratio_list, ratio_index, 1, training=False, normalize = False)
+
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0, pin_memory=True)
     data_iter = iter(dataloader)
 
@@ -95,23 +92,15 @@ if __name__ == '__main__':
             im_info.resize_(data[1].size()).copy_(data[1])
             gt_boxes.resize_(data[2].size()).copy_(data[2])
             num_boxes.resize_(data[3].size()).copy_(data[3])
-            if args.fewshot:
-                support_ims.resize_(data[4].size()).copy_(data[4])
-            else:
-                support_ims = None
+            support_ims.resize_(data[4].size()).copy_(data[4])
+
 
         det_tic = time.time()
         with torch.no_grad():
-            if args.fewshot:
-                rois, cls_prob, bbox_pred, \
-                rpn_loss_cls, rpn_loss_box, \
-                RCNN_loss_cls, RCNN_loss_bbox, \
-                rois_label = model(im_data, im_info, gt_boxes, num_boxes, support_ims)
-            else:
-                rois, cls_prob, bbox_pred, \
-                rpn_loss_cls, rpn_loss_box, \
-                RCNN_loss_cls, RCNN_loss_bbox, \
-                rois_label = model(im_data, im_info, gt_boxes, num_boxes)
+            rois, cls_prob, bbox_pred, \
+            rpn_loss_cls, rpn_loss_box, \
+            RCNN_loss_cls, RCNN_loss_bbox, \
+            rois_label = model(im_data, im_info, gt_boxes, num_boxes, support_ims)
         det_toc = time.time()
         detect_time = det_toc - det_tic
         misc_tic = time.time()
@@ -138,30 +127,20 @@ if __name__ == '__main__':
         scores = scores.squeeze()
         pred_boxes = pred_boxes.squeeze()
         
-        if args.fewshot:
-            for j in range(1, imdb.num_classes):
-                if j != gt_boxes[0, 0, 4]:
-                    all_boxes[j][i] = empty_array
-                    continue
-                inds = torch.nonzero(scores[:,1]>thresh).view(-1)
-                if inds.numel() > 0:
-                    cls_scores = scores[:,1][inds]
-                    cls_boxes = pred_boxes[inds, :]
-                    cls_dets = NMS(cls_boxes, cls_scores)
-                    all_boxes[j][i] = cls_dets.cpu().numpy()
-                else:
-                    all_boxes[j][i] = empty_array
-        else:
-            for j in range(1, imdb.num_classes):
-                inds = torch.nonzero(scores[:,j]>thresh).view(-1)
-                if inds.numel() > 0:
-                    cls_scores = scores[:,j][inds]
-                    cls_boxes = pred_boxes[inds, :]
-                    cls_dets = NMS(cls_boxes, cls_scores)
-                    all_boxes[j][i] = cls_dets.cpu().numpy()
-                else:
-                    all_boxes[j][i] = empty_array
-                
+
+        for j in range(1, imdb.num_classes):
+            if j != gt_boxes[0, 0, 4]:
+                all_boxes[j][i] = empty_array
+                continue
+            inds = torch.nonzero(scores[:,1]>thresh).view(-1)
+            if inds.numel() > 0:
+                cls_scores = scores[:,1][inds]
+                cls_boxes = pred_boxes[inds, :]
+                cls_dets = NMS(cls_boxes, cls_scores)
+                all_boxes[j][i] = cls_dets.cpu().numpy()
+            else:
+                all_boxes[j][i] = empty_array
+
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
 

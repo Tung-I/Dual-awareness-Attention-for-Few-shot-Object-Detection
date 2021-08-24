@@ -49,7 +49,7 @@ def parse_args():
     parser.add_argument('--eval_dir', dest='eval_dir', help='output directory of evaluation', default=None, type=str)
     # few shot
     parser.add_argument('--fs', dest='fewshot', help='few-shot setting', default=False, action='store_true')
-    parser.add_argument('--way', dest='way', help='num of support way', default=2, type=int)
+    parser.add_argument('--way', dest='way', help='num of support way', default=1, type=int)
     parser.add_argument('--shot', dest='shot', help='num of support shot', default=5, type=int)
     parser.add_argument('--sup_dir', dest='sup_dir', help='directory of support images', default='all', type=str) 
     # load checkpoints
@@ -94,7 +94,12 @@ def parse_args():
         args.imdbval_name = "coco_20_set1"
     elif args.dataset == "val2014_base":
         args.imdbval_name = "coco_20_set2"
-
+    elif args.dataset == "val2014_novel":
+        args.imdbval_name = "coco_20_set1"
+        EVALUATION = 'coco'
+    elif args.dataset == "val2014_base":
+        args.imdbval_name = "coco_20_set2"
+        EVALUATION = 'coco'
     else:
         raise Exception(f'dataset {args.dataset} not defined')
     args.cfg_file = "cfgs/res50.yml"
