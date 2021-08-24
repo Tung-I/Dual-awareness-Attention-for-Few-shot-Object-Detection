@@ -10,11 +10,11 @@
       <a href="#introduction">Introduction</a>
     </li>
     <li>
-      <a href="#getting_started">Getting Started</a>
+      <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#data_preparation">Data Preparation</a></li>
-        <li><a href="#pretrained_weights">Pretrained Weights</a></li>
+        <li><a href="#data-preparation">Data Preparation</a></li>
+        <li><a href="#pretrained-weights">Pretrained Weights</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -57,24 +57,25 @@ Create the symlinks to datasets.
 $ cd data
 
 For VOC 2007
-$ ln -s /your/path/to/VOC2007/VOCdevkit VOCdevkit2007
+$ ln -s [your-path-to]/VOC2007/VOCdevkit VOCdevkit2007
 
 For COCO
-$ ln -s /your/path/to/VOC2012/coco coco
+$ ln -s [your-path-to]/coco coco
 ```
 
-3. Prepare support images for inference
+3. At training, we crop support images randomly from dataset according to ground truth. We provide the preprocessed (cropped) support images [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing) to increase the efficiency at inference.
 ```
+Create the soft link of support imgs 
 $ ln -s /your/path/to/supports supports
 ```
 
-4. Create the folder for saving model weights
+4. Create the folder to save model weights
 ```
 $ mkdir models
 ```
 
 ### Pretrained Weights
-1.Backbone Networks\
+1.Backbone Networks
 Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
@@ -84,15 +85,14 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
 2. Model Weights
-The pretrained weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).\
-To use the pretrained weights, please create a folder called "models" and put the unzipped folder in it.\
-The architecture should be
+The pretrained weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).
 ```
-models/DAnA_COCO_ft30/...
+$ cd models
+$ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
 ```
 
-### Compilation
-Prepare the environment.
+### Installation
+Install the environment.
 ```
 $ conda env create -f env.yml
 $ source activate [NAME_OF_THE_ENV]
@@ -116,16 +116,17 @@ If you are confronted with error during the compilation, you might miss to expor
 ## Train
 
 ```
-$ mkdir models
-$ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3
-re-training
-$ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3 --r --load_dir models/dana_bs8_lr1e3 --checkepoch 12
+To train from scratch
+$ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_step 12 --bs 4 --epochs 16 --disp_interval 20 --save_dir models/DAnA --way 2 --shot 3 
+To resume
+$ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_step 12 --bs 4 --epochs 16 --disp_interval 20 --save_dir models/DAnA --way 2 --shot 3 --r --load_dir models/DAnA --checkepoch 12 --checkpoint 4307
 ```
 
 ## Inference
 ```
-$ python inference.py --net dana --bs 1 --load_dir models/dana_bs8_lr1e3 --checkepoch 16 --way 1 --shot 3 --sup_dir data/sup_im 
+$ python inference.py --eval --dataset val2014_novel --net DAnA --r --load_dir models/DAnA_coco_ft30 --checkepoch 4 --checkpoint 299 --bs 1 --shot 3 --eval_dir dana
 ```
+
 ## Attention Visualization
 <br />
 <p align="center">
