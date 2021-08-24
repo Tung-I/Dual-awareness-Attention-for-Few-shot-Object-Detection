@@ -14,7 +14,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#data_preparation">Data Preparation</a></li>
-        <li><a href="#pretrained_model">Pretrained Model</a></li>
+        <li><a href="#pretrained_weights">Pretrained Weights</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -64,11 +64,17 @@ $ ln -s /your/path/to/VOC2012/coco coco
 ```
 
 3. Prepare support images for inference
-4. ```
+```
 $ ln -s /your/path/to/supports supports
 ```
 
-### Pretrained Model
+4. Create the folder for saving model weights
+```
+$ mkdir models
+```
+
+### Pretrained Weights
+1.Backbone Networks\
 Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
@@ -77,7 +83,20 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
+2. Model Weights
+The pretrained weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).\
+To use the pretrained weights, please create a folder called "models" and put the unzipped folder in it.\
+The architecture should be
+```
+models/DAnA_COCO_ft30/...
+```
+
 ### Compilation
+Prepare the environment.
+```
+$ conda env create -f env.yml
+$ source activate [NAME_OF_THE_ENV]
+```
 Compile COCO API.
 ```
 $ cd lib
@@ -95,6 +114,7 @@ $ python setup.py build develop
 If you are confronted with error during the compilation, you might miss to export the CUDA paths to your environment.
 
 ## Train
+
 ```
 $ mkdir models
 $ python train.py --dataset pascal_voc --net dana --lr 0.001 --bs 8 --epochs 16 --save_dir models/dana_bs8_lr1e3
