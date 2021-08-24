@@ -24,15 +24,12 @@
   </ol>
 </details>
 
-## NOTE
-The code of this project is still under maintenance. We will complete it and fix errors in the following weeks.
-
 <!-- INTRODUCTION -->
 ## Introduction
 
 While recent progress has significantly boosted few-shot classification (FSC) performance, few-shot object detection (FSOD) remains challenging for modern learning systems.
-Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying attention to specific semantics conditioned on the query.
-Under the few-shot settting, the proposed method achieves SOTA performance on COCO benchmark.
+Therefore, we propose DAnA (Dual-awareness Attention) mechanism which is adaptable to various existing object detection networks and enhances FSOD performance by paying adaptable attention to support images conditioned on given query information. The proposed method achieves SOTA results on COCO benchmark, outperforming the strongest baseline by 47% on performance.\
+paper link: https://arxiv.org/abs/2102.12152
 
 <br />
 <p align="center">
