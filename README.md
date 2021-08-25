@@ -63,14 +63,18 @@ For COCO
 $ ln -s [your-path-to]/coco coco
 ```
 
-3. The COCO dataset must be preprocessed to match the problem setting of FSOD (ex. removing the ground truth of novel classes during training; selecting one target category at inference). We provide the pre-processed annotations of COCO for both [training](https://drive.google.com/file/d/10mXvdpgSjFYML_9J-zMDLPuBYrSrG2ub/view?usp=sharing) and [inference](https://drive.google.com/file/d/1FZJhC-Ob-IXTKf5heNeNAN00V8OUJXi2/view?usp=sharing).
-To use them, one can just put them into the folder of COCO annotations.
+3. However, the COCO dataset must be preprocessed to conform to the problem setting of FSOD. At training, we must remove the labels of novel instances in each query image. For testing, we should fix the target category of each query image to ensure the results are reproducible.\
+Here we provide the preprocessed .json files of COCO for both training and testing. Users can process the COCO annotation by themselves as well.\
+* 60 base classes for training (https://drive.google.com/file/d/10mXvdpgSjFYML_9J-zMDLPuBYrSrG2ub/view?usp=sharing)
+* 20 novel classes for testing (https://drive.google.com/file/d/1FZJhC-Ob-IXTKf5heNeNAN00V8OUJXi2/view?usp=sharing)
+To use them, one can simply put the folder into COCO annotations.
 ```
 $ mv coco60_train [yout-path-to]/coco/annotations/coco60_train 
 ```
+For those who want to apply customized annotations, please refer to lib/datasets/factory.py and lib/datasets/coco_split.py.
 
-4. At training, we crop support images randomly from dataset in an online manner. However, at inference, we use the preprocessed (cropped) [support images] (https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing) to make the results determinable.
-
+4. At training, the support images we use are patches randomly cropped from other query images according to box annotations. At testing, however, we would like to ensure the results are reproducible, so prepare a set of support images of 80 categories in advance, which is available [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing).\
+To use them:
 ```
 Create the soft link of support imgs 
 $ ln -s /your/path/to/supports supports
@@ -82,7 +86,7 @@ $ mkdir models
 ```
 
 ### Pretrained Weights
-1.Backbone Networks
+1.Backbone Networks\
 Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
@@ -91,7 +95,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-2. Model Weights
+2. Model Weights\
 The pretrained weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).
 ```
 $ cd models
