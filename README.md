@@ -73,7 +73,7 @@ $ mv coco60_train [yout-path-to]/coco/annotations/coco60_train
 ```
 For those who want to apply customized annotations, please refer to lib/datasets/factory.py and lib/datasets/coco_split.py.
 
-4. At training, the support images we use are patches randomly cropped from other query images according to box annotations. At testing, however, we would like to ensure the results are reproducible, so prepare a set of support images of 80 categories in advance, which is available [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing).\
+4. At training, the support images we use are patches randomly cropped from other query images according to box annotations. At testing, however, we would like to ensure the results are reproducible, so we prepare a set of support images of 80 categories in advance, which is available [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing).\
 To use them:
 ```
 Create the soft link of support imgs 
@@ -86,8 +86,7 @@ $ mkdir models
 ```
 
 ### Pretrained Weights
-1.Backbone Networks\
-Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
+1.Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
 $ ln -s /your/path/to/res50.pth res50.pth
@@ -95,15 +94,14 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-2. Model Weights\
-The pretrained weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).
+2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).
 ```
 $ cd models
 $ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
 ```
 
 ### Installation
-Install the environment.
+Install the conda environment.
 ```
 $ conda env create -f env.yml
 $ source activate [NAME_OF_THE_ENV]
