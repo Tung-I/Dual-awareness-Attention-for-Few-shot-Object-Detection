@@ -63,13 +63,20 @@ For COCO
 $ ln -s [your-path-to]/coco coco
 ```
 
-3. At training, we crop support images randomly from dataset according to ground truth. We provide the preprocessed (cropped) support images [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing) to increase the efficiency at inference.
+3. The COCO dataset must be preprocessed to match the problem setting of FSOD (ex. removing the ground truth of novel classes during training; selecting one target category at inference). We provide the pre-processed annotations of COCO for both [training](https://drive.google.com/file/d/10mXvdpgSjFYML_9J-zMDLPuBYrSrG2ub/view?usp=sharing) and [inference](https://drive.google.com/file/d/1FZJhC-Ob-IXTKf5heNeNAN00V8OUJXi2/view?usp=sharing).
+To use them, one can just put them into the folder of COCO annotations.
+```
+$ mv coco60_train [yout-path-to]/coco/annotations/coco60_train 
+```
+
+4. At training, we crop support images randomly from dataset in an online manner. However, at inference, we use the preprocessed (cropped) [support images] (https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing) to make the results determinable.
+
 ```
 Create the soft link of support imgs 
 $ ln -s /your/path/to/supports supports
 ```
 
-4. Create the folder to save model weights
+5. Create the folder to save model weights
 ```
 $ mkdir models
 ```
@@ -118,6 +125,7 @@ If you are confronted with error during the compilation, you might miss to expor
 ```
 To train from scratch
 $ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_step 12 --bs 4 --epochs 16 --disp_interval 20 --save_dir models/DAnA --way 2 --shot 3 
+
 To resume
 $ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_step 12 --bs 4 --epochs 16 --disp_interval 20 --save_dir models/DAnA --way 2 --shot 3 --r --load_dir models/DAnA --checkepoch 12 --checkpoint 4307
 ```
