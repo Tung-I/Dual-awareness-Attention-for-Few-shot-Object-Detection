@@ -105,7 +105,7 @@ def parse_args():
     args.cfg_file = "cfgs/res50.yml"
     return args
 
-def get_model(name, pretrained=True, way=2, shot=3, classes=[]):
+def get_model(name, pretrained=True, use_BA_block=True, way=2, shot=3, classes=[]):
     if name == 'frcnn':
         model = FasterRCNN(classes, pretrained=pretrained)
     elif name == 'fsod':
@@ -117,7 +117,7 @@ def get_model(name, pretrained=True, way=2, shot=3, classes=[]):
     elif name == 'cisa':
         model = CISARCNN(classes, 'concat', 256, 256, pretrained=pretrained, num_way=way, num_shot=shot)
     elif name == 'DAnA':
-        model = DAnARCNN(classes, 'concat', 256, 256, pretrained=pretrained, num_way=way, num_shot=shot)
+        model = DAnARCNN(classes, 'concat', 256, 256, pretrained=pretrained, semantic_enhance=use_BA_block, num_way=way, num_shot=shot)
     else:
         raise Exception(f"network {name} is not defined")
     model.create_architecture()
