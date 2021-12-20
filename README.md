@@ -83,7 +83,7 @@ $ mkdir models
 ```
 
 ### Pretrained Weights
-1.Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
+Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
 $ ln -s /your/path/to/res50.pth res50.pth
@@ -91,7 +91,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **NOTE**. The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
+For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **NOTE**. The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
 ```
 $ cd models
 $ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
