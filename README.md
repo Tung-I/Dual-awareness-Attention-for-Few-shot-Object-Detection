@@ -94,7 +94,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing).
+2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **Note** The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
 ```
 $ cd models
 $ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
@@ -130,6 +130,12 @@ $ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_st
 
 To resume
 $ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_step 12 --bs 4 --epochs 16 --disp_interval 20 --save_dir models/DAnA --way 2 --shot 3 --r --load_dir models/DAnA --checkepoch 12 --checkpoint 4307
+
+To fine-tune
+The same as continuing training. You can simply replace the dataset with fine-tuning dataset prepared beforehand and select a smaller learning rate like 0.0001. The fine-tuning datasets of the 20 novel COCO categories can be found here: 
+<br>
+[10 shots](https://drive.google.com/file/d/1eUZpc6KpSouZm8QL5s2EHXi4sXJXn89X/view?usp=sharing)
+[30 shots](https://drive.google.com/file/d/1zCj4Sbhd2FjHVxlmlk4Nfb9qqJcqMHRy/view?usp=sharing)
 ```
 
 ## Inference
