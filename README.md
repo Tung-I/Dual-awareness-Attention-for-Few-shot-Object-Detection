@@ -94,7 +94,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **NOTE**. The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
 ```
 $ cd models
-$ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
+$ ln -s [your-path-to]/cisa_coco_ft30 cisa_coco_ft30
 ```
 
 ### Installation
