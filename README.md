@@ -63,23 +63,20 @@ For COCO
 $ ln -s [your-path-to]/coco coco
 ```
 
-3. However, the COCO dataset must be preprocessed to conform to the problem setting of FSOD. At training, we must remove the labels of novel instances in each query image. For testing, we should fix the target category of each query image to ensure the results are reproducible.\
-Here we provide the preprocessed .json files of COCO for both training and testing. Users can process the COCO annotation by themselves as well.\
+3. The COCO dataset must be preprocessed to conform to the problem setting of FSOD. At training, we must remove the labels of novel instances in each query image. For testing, we should fix the target category of each query image to ensure the results are reproducible. For your convenience, we provide the preprocessed .json files of COCO for both training and testing. Users can process the COCO annotation to construct customized datasets for their research purposes as well.
 * 60 base classes for training (https://drive.google.com/file/d/10mXvdpgSjFYML_9J-zMDLPuBYrSrG2ub/view?usp=sharing)
 * 20 novel classes for testing (https://drive.google.com/file/d/1FZJhC-Ob-IXTKf5heNeNAN00V8OUJXi2/view?usp=sharing)
-To use them, one can simply put the folder into COCO annotations.
+To use them, simply put the folder into *COCO annotations*.
 ```
 $ mv coco60_train [yout-path-to]/coco/annotations/coco60_train 
 ```
 For those who want to apply customized annotations, please refer to lib/datasets/factory.py and lib/datasets/coco_split.py.
 
-4. At training, the support images we use are patches randomly cropped from other query images according to box annotations. At testing, however, we would like to ensure the results are reproducible, so we prepare a set of support images of 80 categories in advance, which is available [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing).\
-To use them:
+4. At training, the support images are image patches randomly cropped from other query images according to box annotations. At testing, to ensure the results are reproducible, a set of support images of 80 categories should be constructed in advance. The support image set we used is available [here](https://drive.google.com/file/d/1nl9-DEpBBJ5w6hxVdijY6hFxoQdz8aso/view?usp=sharing). To use them:
 ```
 Create the soft link of support imgs 
 $ ln -s /your/path/to/supports supports
 ```
-
 5. Create the folder to save model weights
 ```
 $ mkdir models
@@ -94,7 +91,7 @@ $ ln -s /your/path/to/res50.pth res50.pth
 **NOTE**. We would suggest to use Caffe pretrained models to reproduce our results.
 **If you want to use pytorch pre-trained models, please remember to transpose images from BGR to RGB, and also use the same data transformer (minus mean and normalize) as used in pretrained model.**
 
-2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **Note** The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
+2. For those who would like to test the model only, the weights of DAnA can be download [here](https://drive.google.com/file/d/1JaYF-Ep-C6b5X01_e9tFRzFgRXMJQYQ7/view?usp=sharing). **NOTE**. The provided fine-tuned model weights "cisa_coco_ft30" was fine-tuned on 30-shot novel object classes without using BA block. Therefore, to use them, please set get_model(..., use_BA_block=False) at train.py.   
 ```
 $ cd models
 $ ln -s [your-path-to]/DAnA_COCO_ft30 DAnA_COCO_ft30
