@@ -83,7 +83,7 @@ $ mkdir models
 ```
 
 ### Pretrained Weights
-Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model. 
+Please download the pretrained backbone models (e.g., res50, vgg16) and put them into data/pretrained_model, which can be found in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models). 
 ```
 $ mkdir data/pretrained_model && cd data/pretrained_model
 $ ln -s /your/path/to/res50.pth res50.pth
