@@ -133,9 +133,11 @@ $ python train.py --dataset coco_base --flip --net DAnA --lr 0.001 --lr_decay_st
 ```
 
 To fine-tune
+<br>
 The same as continuing training. You can simply replace the dataset with fine-tuning dataset prepared beforehand and select a smaller learning rate like 0.0001. The fine-tuning datasets of the 20 novel COCO categories can be found here: 
 <br>
 [10 shots](https://drive.google.com/file/d/1eUZpc6KpSouZm8QL5s2EHXi4sXJXn89X/view?usp=sharing)
+<br>
 [30 shots](https://drive.google.com/file/d/1zCj4Sbhd2FjHVxlmlk4Nfb9qqJcqMHRy/view?usp=sharing)
 
 ## Inference
