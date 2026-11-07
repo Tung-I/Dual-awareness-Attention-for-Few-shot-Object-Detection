@@ -92,7 +92,7 @@ if __name__ == '__main__':
     if args.resume:
         load_dir = os.path.join(args.load_dir, "train/checkpoints")
         load_name = os.path.join(load_dir, f'model_{args.checkepoch}_{args.checkpoint}.pth')
-        checkpoint = torch.load(load_name)
+        checkpoint = torch.load(load_name, weights_only=True)
         args.start_epoch = checkpoint['epoch']
         model.load_state_dict(checkpoint['model'])
         optimizer.load_state_dict(checkpoint['optimizer'])
